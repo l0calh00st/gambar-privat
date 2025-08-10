@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Viewer Gambar Privat</title>
+  <style>
+    body {
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f0f0f0;
+    }
+    img {
+      max-width: 90%;
+      max-height: 80vh;
+      user-select: none; /* tidak bisa diseleksi */
+      -webkit-user-drag: none; /* tidak bisa drag */
+      pointer-events: none; /* nonaktif klik pada gambar */
+      border: 2px solid #444;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Gambar Privat</h2>
+  <img src="https://drive.google.com/file/d/1a-b9jDLGFxKT-W0WiwMGwtbVQ8bSJ6ah/view?usp=drive_link" alt="Gambar Privat" id="privateImage" />
+
+  <script>
+    // Mencegah klik kanan di seluruh halaman
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      alert('Klik kanan dilarang!');
+    });
+
+    // Mencegah drag gambar
+    const img = document.getElementById('privateImage');
+    img.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+    });
+
+    // Mencegah tombol Print Screen (hanya peringatan, tidak 100% efektif)
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'PrintScreen') {
+        alert('Print Screen dilarang!');
+        // Bisa juga clear clipboard (hanya di browser tertentu)
+        try {
+          navigator.clipboard.writeText('');
+        } catch(err) {
+          // Clipboard API tidak didukung
+        }
+      }
+    });
+
+    // Mencegah CTRL + S (save page)
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        alert('Menyimpan halaman dilarang!');
+      }
+    });
+  </script>
+
+</body>
+</html>
